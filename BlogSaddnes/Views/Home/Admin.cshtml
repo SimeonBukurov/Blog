@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Home Page";
+    var userName = UserManager.GetUserName(User);
+}
+<div class="text-center">
+    <h1 class="display-4">Greetings, @userName - Admin</h1>
+    <p>Enjoy your work.</p>
+</div>
