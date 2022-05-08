@@ -27,10 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            @if (User.IsInRole("Administrator"))
-            {
                 <th></th>
-            }
+                <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -50,16 +49,21 @@
                         <input type="submit" class="btn btn-primary" value="Posts">
                         <input type="hidden" name="BlogId" id="BlogId" value="@item.Id">
                         <input type="hidden" name="OwnerId" id="OwnerId" value="@currentUserId">
-                    </form>
+                 </form>
             </td>
-
-            @if (User.IsInRole("Administrator"))
+            @if (SignInManager.IsSignedIn(User))
                 {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <td>                     
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @if (User.IsInRole("Administrator"))
+                            {
+                            
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            
+                            }
                     </td>
+                    
                 }
         </tr>
 }

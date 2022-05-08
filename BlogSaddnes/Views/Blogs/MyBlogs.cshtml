@@ -26,6 +26,7 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -47,11 +48,20 @@
                         <input type="hidden" name="OwnerId" id="OwnerId" value="@currentUserId">
                     </form>
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+           @if (SignInManager.IsSignedIn(User))
+                {
+                    <td>                     
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @if (User.IsInRole("Administrator"))
+                            {
+                            
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            
+                            }
+                    </td>
+                    
+                }
         </tr>
 }
     </tbody>

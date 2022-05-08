@@ -1,14 +1,20 @@
-﻿@model IEnumerable<BlogSaddnes.Models.Post>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<User> UserManager;
+@inject SignInManager<User> SignInManager;
+@model IEnumerable<BlogSaddnes.Models.Post>
 
 @{
     ViewData["Title"] = "My Posts";
+    var currentUserId = UserManager.GetUserId(User);
 }
 
 <h1>My Posts</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (SignInManager.IsSignedIn(User))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -24,7 +30,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.Date)
             </th>
-            <th></th>
+                <th></th>
+
         </tr>
     </thead>
     <tbody>
@@ -42,11 +49,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            @if (SignInManager.IsSignedIn(User))
+                {
+                    <td>                     
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                        @if (User.IsInRole("Administrator"))
+                            {
+                            
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            
+                            }
+                    </td>
+                    
+                }
         </tr>
 }
     </tbody>

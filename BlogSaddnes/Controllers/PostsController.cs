@@ -73,7 +73,7 @@ namespace BlogSaddnes.Controllers
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(MyBlogPosts));
+                return RedirectToAction(nameof(Index));
             }
             ViewData["AuthorId"] = new SelectList(_context.Set<User>(), "Id", "UserName", post.AuthorId);
             ViewData["BlogId"] = new SelectList(_context.Blogs, "Id", "Name", post.BlogId);
