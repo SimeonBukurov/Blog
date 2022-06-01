@@ -79,7 +79,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // GET: Blogs/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,7 +99,7 @@ namespace BlogSaddnes.Controllers
         // POST: Blogs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,OwnerId,Description")] Blog blog)
@@ -134,7 +134,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // GET: Blogs/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,7 +154,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // POST: Blogs/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

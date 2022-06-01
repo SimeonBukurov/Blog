@@ -17,11 +17,13 @@ namespace BlogSaddnes.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public PostsController(ApplicationDbContext context, UserManager<User> userManager)
+        public PostsController(ApplicationDbContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _context = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Posts
@@ -81,7 +83,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // GET: Posts/Edit/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,7 +140,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // GET: Posts/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -159,7 +161,7 @@ namespace BlogSaddnes.Controllers
         }
 
         // POST: Posts/Delete/5
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
